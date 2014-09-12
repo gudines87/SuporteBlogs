@@ -9,6 +9,5 @@ public class Espectador extends Usuario{
 	public Espectador(String login, String senha, String nome) {
 		super(login, senha, nome);
 	}
-
 	
 }

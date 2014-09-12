@@ -1,5 +1,7 @@
 package negocios;
 
+import interfaces.AdministradorDAO;
+
 public class Administrador extends Usuario {
 	
 	private Blog blog;
@@ -28,17 +30,23 @@ public class Administrador extends Usuario {
 				+ ", tel=" + tel + ", mail=" + mail + "]";
 	}
 	
-	public void deletarBlog(int cod){
-		
-	}
-
-	
-	public void gerarPost(Post post){
-		
+	public void salvarDados(Administrador administrador){
+		AdministradorDAO ad = FactoryDAO.createAdministradorDAO();
+		ad.salvarDados(administrador);
 	}
 	
-	public void deletarPost(){
-		
+	public void atualizarDados(Administrador administrador){
+		AdministradorDAO ad = FactoryDAO.createAdministradorDAO();
+		ad.atualizarDados(administrador);
 	}
 	
+	public Administrador consultarAdministrador(String id){
+		AdministradorDAO ad = FactoryDAO.createAdministradorDAO();
+		return ad.consultarAdministrador(id);
+	}
+	
+	public void removerAdministrador(){
+		AdministradorDAO ad = FactoryDAO.createAdministradorDAO();
+		ad.removerAdministrador(id);
+	}
 }

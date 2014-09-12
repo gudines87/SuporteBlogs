@@ -1,5 +1,7 @@
 package negocios;
 
+import interfaces.PostDAO;
+
 public class Post {
 	
 	private int cod;
@@ -48,15 +50,18 @@ public class Post {
 	}
 	
 	public void criarPost(Post post){
-		
+		PostDAO pd = FactoryDAO.createPostDAO();
+		pd.criarPost(post);
 	}
 	
 	public Post consultarPost(int cod){
-		return null;
+		PostDAO pd = FactoryDAO.createPostDAO();
+		return pd.consultarPost(cod);
 	}
 	
 	public void removerPost(int cod){
-		
+		PostDAO pd = FactoryDAO.createPostDAO();
+		pd.removerPost(cod);
 	}
 
 }

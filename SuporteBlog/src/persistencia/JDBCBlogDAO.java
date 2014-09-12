@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//import negocios.Administrador;
+import negocios.Administrador;
 import negocios.Blog;
 import interfaces.BlogDAO;
 
@@ -47,7 +47,7 @@ public class JDBCBlogDAO implements BlogDAO {
 	public Blog consultarBlog(int cod) {
 		try{
 			Blog blog = new Blog();
-			//Administrador ad = new Administrador();
+			Administrador ad = new Administrador();
 			String sql = "select * from Blog where cod = ?";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -60,7 +60,7 @@ public class JDBCBlogDAO implements BlogDAO {
 				blog.setNome(rs.getString("nome"));
 				blog.setPalavrasChave(rs.getString("palavrasChave"));
 				blog.getAdministrador().setId(rs.getString("idAdministrador"));
-				//blog.setAdministrador(ad.consultarUsuario(rs.getString("idAdministrador")));
+				blog.setAdministrador(ad.consultarAdministrador(rs.getString("idAdministrador")));
 			}
 			ps.close();
 			//con.close();

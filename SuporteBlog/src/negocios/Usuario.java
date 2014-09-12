@@ -1,8 +1,6 @@
 package negocios;
 
-import interfaces.UsuarioDAO;
-
-public class Usuario {
+public abstract class Usuario {
 
 	protected String id;
 	protected String nome;
@@ -76,24 +74,5 @@ public class Usuario {
 		this.id = login.concat(senha);
 	}
 	
-	public void salvarDados(Usuario usuario){
-		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
-		ud.salvarDados(usuario);		
-	}
-	
-	public void atualizarDados(Usuario usuario){
-		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
-		ud.atualizarDados(usuario);
-	}
-	
-	public Usuario consultarUsuario(String id){
-		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
-		return ud.consultarUsuario(id);
-	}
-	
-	public void removerUsuario(String id){
-		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
-		ud.removerUsuario(id);
-	}
 	
 }
