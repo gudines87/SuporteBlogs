@@ -1,7 +1,6 @@
 package fachada;
 
 import negocios.Usuario;
-import negocios.UsuarioFactory;
 
 public class Fachada {
 	

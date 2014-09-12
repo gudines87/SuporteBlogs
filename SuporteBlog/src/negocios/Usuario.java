@@ -96,16 +96,4 @@ public class Usuario {
 		ud.removerUsuario(id);
 	}
 	
-	public void gerarComentario(Comentario comentario){
-		
-	}
-	
-	public void deletarComentario(int cod){
-		
-	}
-	
-	public Post consultarPost(int cod){
-		return null;
-	}
-	
 }

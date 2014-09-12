@@ -1,29 +1,24 @@
 package negocios;
 
+import interfaces.BlogDAO;
+
 public class Blog {
 	
 	private int cod;
-	private static int codProx;
 	private String nome;
-	private String end;
+	private String url;
 	private String imagemDeFundo;
 	private String palavrasChave;
-	private Administrador administrador;
-	private Espectador espectador;
-	
+	private Administrador administrador;	
 	
 	public Blog(){
-		cod = codProx;
-		codProx++;
+
 	}
 	
 	public Blog(String nome, String end, Administrador ad){
-		this();
 		this.nome = nome;
-		this.end = end;
+		this.url = end;
 		this.administrador = ad;
-		cod = codProx;
-		codProx++;
 	}
 	
 	public int getCod() {
@@ -32,9 +27,6 @@ public class Blog {
 	public void setCod(int cod) {
 		this.cod = cod;
 	}
-	public int getCodProx() {
-		return codProx;
-	}
 	
 	public String getNome() {
 		return nome;
@@ -42,11 +34,11 @@ public class Blog {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getEnd() {
-		return end;
+	public String getUrl() {
+		return url;
 	}
-	public void setEnd(String end) {
-		this.end = end;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getImagemDeFundo() {
@@ -72,33 +64,27 @@ public class Blog {
 	public void setAdministrador(Administrador administrador) {
 		this.administrador = administrador;
 	}
-
-	public Espectador getEspectador() {
-		return espectador;
-	}
-
-	public void setEspectador(Espectador espectador) {
-		this.espectador = espectador;
-	}
-
+	
 	@Override
 	public String toString() {
-		return "Blog [nome=" + nome + ", end=" + end + ", imagemDeFundo=" + imagemDeFundo + ", palavrasChave="
-				+ palavrasChave + ", administrador=" + administrador
-				+ ", espectador=" + espectador + "]";
+		return "Blog [cod=" + cod + ", nome=" + nome + ", end=" + url
+				+ ", imagemDeFundo=" + imagemDeFundo + ", palavrasChave="
+				+ palavrasChave + ", administrador=" + administrador + "]";
 	}
 
-	
 	public void criarBlog(Blog blog){
-		
+		BlogDAO bd = FactoryDAO.createBlogDAO();
+		bd.criarBlog(blog);		
 	}
 	
 	public void removerBlog(int cod){
-		
+		BlogDAO bd = FactoryDAO.createBlogDAO();
+		bd.removerBlog(cod);
 	}
 	
 	public Blog consultarBlog(int cod){
-		return null;
+		BlogDAO bd = FactoryDAO.createBlogDAO();
+		return bd.consultarBlog(cod);
 	}
 	
 	
