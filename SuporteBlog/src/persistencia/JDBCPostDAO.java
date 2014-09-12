@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import negocios.Administrador;
 import negocios.Blog;
 import negocios.Post;
 import interfaces.PostDAO;
@@ -43,7 +44,7 @@ public class JDBCPostDAO implements PostDAO{
 		try{
 			Post post = new Post();
 			Blog blog = new Blog();
-			//Administrador ad = new Administrador();
+			Administrador ad = new Administrador();
 			
 			String sql = "select * from Post where cod = ?";
 			
@@ -54,7 +55,7 @@ public class JDBCPostDAO implements PostDAO{
 			if(rs.next()){
 				post.setCod(rs.getInt("cod"));
 				post.setBlog(blog.consultarBlog(rs.getInt("codBlog")));
-				////post.setAdministrador(ad.consultarUsuario(rs.getString("idAdministrador")));
+				post.setAdministrador(ad.consultarAdministrador(rs.getString("idAdministrador")));
 			}
 			ps.close();
 			//con.close();
