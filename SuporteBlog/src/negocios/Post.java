@@ -49,9 +49,9 @@ public class Post {
 				+ ", blog=" + blog + "]";
 	}
 	
-	public void criarPost(Post post){
+	public int criarPost(Post post){
 		PostDAO pd = FactoryDAO.createPostDAO();
-		pd.criarPost(post);
+		return pd.criarPost(post);
 	}
 	
 	public Post consultarPost(int cod){

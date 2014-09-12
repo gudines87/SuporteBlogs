@@ -72,9 +72,9 @@ public class Blog {
 				+ palavrasChave + ", administrador=" + administrador + "]";
 	}
 
-	public void criarBlog(Blog blog){
+	public int criarBlog(Blog blog){
 		BlogDAO bd = FactoryDAO.createBlogDAO();
-		bd.criarBlog(blog);		
+		return bd.criarBlog(blog);		
 	}
 	
 	public void removerBlog(int cod){

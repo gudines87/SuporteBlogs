@@ -72,9 +72,9 @@ public class Anexo {
 				+ post + "]";
 	}
 
-	public void salvarAnexo(Anexo anexo){
+	public int salvarAnexo(Anexo anexo){
 		AnexoDAO ad = FactoryDAO.createAnexoDAO();
-		ad.salvarAnexo(anexo);
+		return ad.salvarAnexo(anexo);
 	}
 	
 	public Anexo consultarAnexo(int cod){

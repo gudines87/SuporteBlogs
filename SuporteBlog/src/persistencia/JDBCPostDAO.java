@@ -20,17 +20,26 @@ public class JDBCPostDAO implements PostDAO{
 	}
 	
 	@Override
-	public void criarPost(Post post) {
+	public int criarPost(Post post) {
 		
 		try{
+			int codigo = 0;
 			String sql = "insert into Post(codBlog, idAdministrador) values (?,?)";
+			String sqlRecuperaCodigo = "select max(cod) from Post";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, post.getBlog().getCod());
 			ps.setString(2, post.getAdministrador().getId());
 			ps.executeUpdate();
+			
+			ps = con.prepareStatement(sqlRecuperaCodigo);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				codigo = rs.getInt(1);
+			}
 			ps.close();
 			//con.close();
+			return codigo;
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new RuntimeException("Falha ao criar post em JDBCPostDAO", e);

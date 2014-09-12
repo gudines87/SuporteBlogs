@@ -18,9 +18,11 @@ public class JDBCAnexoDAO implements AnexoDAO {
 	}
 	
 	@Override
-	public void salvarAnexo(Anexo anexo) {
+	public int salvarAnexo(Anexo anexo) {
 		
 		try{
+			int codigo = 0;
+			String sqlRecuperaCodigo = "select max(cod) from Anexo";
 			String sql = "insert into Anexo(nome,tipo,end,codComentario,codPost)" +
 					"values (?,?,?,?,?)";
 			
@@ -32,8 +34,15 @@ public class JDBCAnexoDAO implements AnexoDAO {
 			ps.setInt(5,anexo.getPost().getCod());
 			
 			ps.executeUpdate();
+			
+			ps = con.prepareStatement(sqlRecuperaCodigo);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				codigo = rs.getInt(1);
+			}
 			ps.close();
 			//con.close();
+			return codigo;
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new RuntimeException("Falha ao salvar anexo em JDBCAnexoDAO", e);

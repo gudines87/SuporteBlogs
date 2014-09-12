@@ -20,11 +20,13 @@ public class JDBCBlogDAO implements BlogDAO {
 	}
 	
 	@Override
-	public void criarBlog(Blog blog) {
+	public int criarBlog(Blog blog) {
 		
 		try{
+			int codigo = 0;
 			String sql = "insert into Blog(nome,url,imagemDeFundo,palavrasChave, idAdministrador)" +
 					"values (?,?,?,?,?,?)";
+			String sqlRecuperaCodigo = "select max(cod) from Blog";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, blog.getNome());
@@ -34,8 +36,15 @@ public class JDBCBlogDAO implements BlogDAO {
 			ps.setString(5, blog.getAdministrador().getId());
 			
 			ps.executeUpdate();
+			
+			ps = con.prepareStatement(sqlRecuperaCodigo);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				codigo = rs.getInt(1);
+			}
 			ps.close();
 			//con.close();
+			return codigo;
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new RuntimeException("Falha ao criar blog em JDBCBlogDAO", e);
