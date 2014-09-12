@@ -68,7 +68,6 @@ public class JDBCBlogDAO implements BlogDAO {
 				blog.setImagemDeFundo(rs.getString("imagemDeFundo"));
 				blog.setNome(rs.getString("nome"));
 				blog.setPalavrasChave(rs.getString("palavrasChave"));
-				blog.getAdministrador().setId(rs.getString("idAdministrador"));
 				blog.setAdministrador(ad.consultarAdministrador(rs.getString("idAdministrador")));
 			}
 			ps.close();

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import negocios.Anexo;
+import negocios.Comentario;
+import negocios.Post;
 import interfaces.AnexoDAO;
 
 public class JDBCAnexoDAO implements AnexoDAO {
@@ -55,6 +57,8 @@ public class JDBCAnexoDAO implements AnexoDAO {
 		
 		try{
 			Anexo anexo = new Anexo();
+			Comentario comentario = new Comentario();
+			Post post = new Post();
 			String sql = "select * from Anexo where cod = ?";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -65,8 +69,8 @@ public class JDBCAnexoDAO implements AnexoDAO {
 				anexo.setNome(rs.getString("nome"));
 				anexo.setTipo(rs.getString("tipo"));
 				anexo.setEnd(rs.getString("end"));
-				anexo.getComentario().setCod(rs.getInt("codComentario"));//
-				anexo.getPost().setCod(rs.getInt("codPost"));//
+				anexo.setComentario(comentario.consultarComentario(rs.getInt("codComentario")));
+				anexo.setPost(post.consultarPost(rs.getInt("codPost")));
 			}			
 			ps.close();
 			//con.close();
