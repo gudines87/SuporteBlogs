@@ -12,7 +12,7 @@ public class Espectador extends Usuario{
 		super(login, senha, nome);
 	}
 	
-	public void savarDados(Espectador espectador){
+	public void salvarDados(Espectador espectador){
 		EspectadorDAO ed = FactoryDAO.createEspectadorDAO();
 		ed.salvarDados(espectador);
 	}
