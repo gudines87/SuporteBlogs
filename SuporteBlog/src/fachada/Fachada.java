@@ -5,7 +5,7 @@ import java.util.List;
 import negocios.Anexo;
 import negocios.Blog;
 import negocios.Comentario;
-import negocios.Usuario;
+import negocios.Profile;
 
 import negocios.Post;
 
@@ -17,7 +17,7 @@ public class Fachada {
 		private Anexo anexo;
 		private Comentario comentario;
 		private Post post;
-		private Usuario usuario;	
+		private Profile usuario;	
 		
 
 	public Fachada() {
@@ -25,7 +25,7 @@ public class Fachada {
 		this.anexo = new Anexo();
 		this.comentario = new Comentario();
 		this.post = new Post();
-		this.usuario = new Usuario();
+		this.usuario = new Profile();
 	}
 
 	public static Fachada getInstance() {
@@ -33,21 +33,21 @@ public class Fachada {
 	}
 	
 	public void salvarUsuario(String login, String senha, String nome, String end, String tel, String mail){
-		this.usuario = new Usuario(login, senha, nome, end, tel, mail);
+		this.usuario = new Profile(login, senha, nome, end, tel, mail);
 		this.usuario.gravarId(login, senha);
 		this.usuario.salvarUsuario(usuario);
 	}
 	
 	public void atualizarUsuario(String login, String senha, String nome, String end, String tel, String mail){
-		this.usuario = new Usuario(login, senha, nome, end, tel, mail);
+		this.usuario = new Profile(login, senha, nome, end, tel, mail);
 		this.usuario.gravarId(login, senha);
 		this.usuario.atualizarUsuario(usuario);
 	}
 	
-	public Usuario consultarUsuario(String id){
+	public Profile consultarUsuario(String id){
 		return this.usuario.consultarUsuario(id);
 	}
-	public List<Usuario> consultarUsuarios(){
+	public List<Profile> consultarUsuarios(){
 		return this.usuario.listarUsuarios();
 	}
 	

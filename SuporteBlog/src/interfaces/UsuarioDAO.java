@@ -2,14 +2,14 @@ package interfaces;
 
 import java.util.List;
 
-import negocios.Usuario;
+import negocios.Profile;
 
 public interface UsuarioDAO {
 
-	public void salvarUsuario(Usuario usuario);
-	public void atualizarUsuario(Usuario usuario);
+	public void salvarUsuario(Profile usuario);
+	public void atualizarUsuario(Profile usuario);
 	public void removerUsuario(String id);
-	public Usuario consultarUsuario(String id);
-	public List<Usuario> listarUsuarios();
+	public Profile consultarUsuario(String id);
+	public List<Profile> listarUsuarios();
 	
 }

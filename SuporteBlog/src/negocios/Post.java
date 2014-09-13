@@ -5,15 +5,18 @@ import interfaces.PostDAO;
 public class Post {
 	
 	private int cod;
-	private Usuario usuario;
+	private String titulo;
+	private String texto;
+	private String sessionId;
+	private Profile usuario;
 	private Blog blog;
 	
 	public Post(){
-		this.usuario = new Usuario();
+		this.usuario = new Profile();
 	}
 
-	public Post(Usuario usuario, Blog blog) {
-		this.usuario = new Usuario();
+	public Post(Profile usuario, Blog blog) {
+		this.usuario = new Profile();
 		this.usuario = usuario;
 		this.blog = blog;
 	}
@@ -26,11 +29,11 @@ public class Post {
 		this.cod = cod;
 	}
 
-	public Usuario getUsuario() {
+	public Profile getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(Profile usuario) {
 		this.usuario = usuario;
 	}
 

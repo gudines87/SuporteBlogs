@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import negocios.Usuario;
+import negocios.Profile;
 import negocios.Blog;
 import negocios.Post;
 import interfaces.PostDAO;
@@ -53,7 +53,7 @@ public class JDBCPostDAO implements PostDAO{
 		try{
 			Post post = new Post();
 			Blog blog = new Blog();
-			Usuario usuario = new Usuario();
+			Profile usuario = new Profile();
 			
 			String sql = "select * from Post where cod = ?";
 			

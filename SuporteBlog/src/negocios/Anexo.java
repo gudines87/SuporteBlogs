@@ -6,22 +6,13 @@ public class Anexo {
 	
 	private int cod;
 	private String nome;
-	private String tipo;// ex.: imagem, video, arquivo.
+	private TipoAnexo tipo;
 	private String end; //endereço do anexo.
 	private Comentario comentario;
 	private Post post;
 	
 	public Anexo(){
 	
-	}
-	
-	public Anexo(String nome, String tipo, String end, Comentario comentario,
-			Post post) {
-		this.nome = nome;
-		this.tipo = tipo;
-		this.end = end;
-		this.comentario = comentario;
-		this.post = post;
 	}
 
 	public int getCod() {
@@ -36,12 +27,7 @@ public class Anexo {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+	
 	public String getEnd() {
 		return end;
 	}

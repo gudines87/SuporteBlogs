@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import negocios.Usuario;
+import negocios.Profile;
 import interfaces.UsuarioDAO;
 
 public class JDBCUsuarioDAO implements UsuarioDAO{
@@ -20,7 +20,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO{
 	}
 
 	@Override
-	public void salvarUsuario(Usuario usuario) {
+	public void salvarUsuario(Profile usuario) {
 		
 		try {
 			String sql = "insert into Usuario(id, nome, login, senha, end, tel, mail)" +
@@ -46,7 +46,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO{
 	}
 
 	@Override
-	public void atualizarUsuario(Usuario usuario) {
+	public void atualizarUsuario(Profile usuario) {
 		try{
 			String sql = "update Usuario set nome = ?, senha = ?, end = ?, tel = ?, mail = ? where id = ?";
 			
@@ -85,10 +85,10 @@ public class JDBCUsuarioDAO implements UsuarioDAO{
 	}
 
 	@Override
-	public Usuario consultarUsuario(String id) {
+	public Profile consultarUsuario(String id) {
 		
 		try{
-			Usuario usuario = new Usuario();
+			Profile usuario = new Profile();
 		String sql = "select * from Usuario where id = ?";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -113,15 +113,15 @@ public class JDBCUsuarioDAO implements UsuarioDAO{
 	}
 
 	@Override
-	public List<Usuario> listarUsuarios() {
-		List<Usuario> usuarios = new ArrayList<>();
+	public List<Profile> listarUsuarios() {
+		List<Profile> usuarios = new ArrayList<>();
 		try {
 			String sql = "select * from Usuario";
 		
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				Usuario usuario = new Usuario();
+				Profile usuario = new Profile();
 				usuario.setId(rs.getString("id"));
 				usuario.setLogin(rs.getString("login"));
 				usuario.setSenha(rs.getString("senha"));

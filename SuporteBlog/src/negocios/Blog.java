@@ -4,79 +4,125 @@ import interfaces.BlogDAO;
 
 public class Blog {
 	
-	private int cod;
-	private String nome;
-	private String url;
-	private String imagemDeFundo;
-	private String palavrasChave;
-	private Usuario usuario;	
+	private int codigo;
+	private String titulo;
+	private String descricao;
+	private String imagemFundo;
+	private boolean autz_comment;
+	private boolean autz_comment_annon;
+	private Profile usuario;
+	private String sessionId;
+	private String background;
+	
 	
 	public Blog(){
-		this.usuario = new Usuario();
+		this.usuario = new Profile();
 	}
-	
-	public Blog(String nome, String url, String imagemDeFundo,
-			String palavrasChave, Usuario usuario) {
-		this.usuario = new Usuario();
-		this.nome = nome;
-		this.url = url;
-		this.imagemDeFundo = imagemDeFundo;
-		this.palavrasChave = palavrasChave;
+
+	public Blog(String titulo, String descricao,
+			String imagemFundo, boolean autorizaComentario,
+			boolean autorizaComentarioAnonimo, Profile usuario,
+			String palavrasChave) {
+		super();
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.imagemFundo = imagemFundo;
+		this.autz_comment = autorizaComentario;
+		this.autz_comment_annon = autorizaComentarioAnonimo;
 		this.usuario = usuario;
 	}
 
 
 
-	public int getCod() {
-		return cod;
-	}
-	public void setCod(int cod) {
-		this.cod = cod;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getImagemDeFundo() {
-		return imagemDeFundo;
-	}
-
-	public void setImagemDeFundo(String imagemDeFundo) {
-		this.imagemDeFundo = imagemDeFundo;
-	}
-
-	public String getPalavrasChave() {
-		return palavrasChave;
-	}
-
-	public void setPalavrasChave(String palavrasChave) {
-		this.palavrasChave = palavrasChave;
+	public int getCodigo() {
+		return codigo;
 	}
 
 
-	public Usuario getUsuario() {
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+
+
+	public String getImagemFundo() {
+		return imagemFundo;
+	}
+
+
+
+	public void setImagemFundo(String imagemFundo) {
+		this.imagemFundo = imagemFundo;
+	}
+
+
+
+	public boolean isAutorizaComentario() {
+		return autz_comment;
+	}
+
+
+
+	public void setAutorizaComentario(boolean autorizaComentario) {
+		this.autz_comment = autorizaComentario;
+	}
+
+
+
+	public boolean isAutorizaComentarioAnonimo() {
+		return autz_comment_annon;
+	}
+
+
+
+	public void setAutorizaComentarioAnonimo(boolean autorizaComentarioAnonimo) {
+		this.autz_comment_annon = autorizaComentarioAnonimo;
+	}
+
+
+
+	public Profile getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+
+
+	public void setUsuario(Profile usuario) {
 		this.usuario = usuario;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Blog [cod=" + cod + ", nome=" + nome + ", url=" + url
-				+ ", imagemDeFundo=" + imagemDeFundo + ", palavrasChave="
-				+ palavrasChave + ", usuario=" + usuario + "]";
+		return "Blog [codigo=" + codigo + ", titulo=" + titulo + ", descricao="
+				+ descricao + ", imagemFundo=" + imagemFundo
+				+ ", autorizaComentario=" + autz_comment
+				+ ", autorizaComentarioAnonimo=" + autz_comment_annon
+				+ ", usuario=" + usuario + "]";
 	}
 
 	public int criarBlog(Blog blog){
@@ -92,8 +138,6 @@ public class Blog {
 	public Blog consultarBlog(int cod){
 		BlogDAO bd = FactoryDAO.createBlogDAO();
 		return bd.consultarBlog(cod);
-	}
-	
-	
+	}	
 
 }

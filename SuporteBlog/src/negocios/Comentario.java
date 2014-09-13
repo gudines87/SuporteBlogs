@@ -6,15 +6,15 @@ public class Comentario {
 	
 	private int cod;
 	private String comentario;
-	private Usuario usuario;
+	private Profile usuario;
 
 	
 	public Comentario(){
-		this.usuario = new Usuario();
+		this.usuario = new Profile();
 	}
 
-	public Comentario(String comentario, Usuario usuario) {
-		this.usuario = new Usuario();
+	public Comentario(String comentario, Profile usuario) {
+		this.usuario = new Profile();
 		this.comentario = comentario;
 		this.usuario = usuario;
 	}
@@ -32,11 +32,11 @@ public class Comentario {
 		this.comentario = comentario;
 	}
 
-	public Usuario getUsuario() {
+	public Profile getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(Profile usuario) {
 		this.usuario = usuario;
 	}
 

@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import negocios.Usuario;
+import negocios.Profile;
 import negocios.Blog;
 import interfaces.BlogDAO;
 
@@ -56,7 +56,7 @@ public class JDBCBlogDAO implements BlogDAO {
 	public Blog consultarBlog(int cod) {
 		try{
 			Blog blog = new Blog();
-			Usuario usuario = new Usuario();
+			Profile usuario = new Profile();
 			String sql = "select * from Blog where cod = ?";
 			
 			PreparedStatement ps = con.prepareStatement(sql);

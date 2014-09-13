@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import negocios.Usuario;
+import negocios.Profile;
 import negocios.Comentario;
 
 //import negocios.Usuario;
@@ -51,7 +51,7 @@ public class JDBCComentarioDAO implements ComentarioDAO {
 	public Comentario consultarComentario(int cod) {
 		
 		try{
-			Usuario usuario = new Usuario();
+			Profile usuario = new Profile();
 			Comentario comentario = new Comentario();
 			String sql = "select * from Comentario where cod = ?";
 			
