@@ -5,17 +5,17 @@ import interfaces.PostDAO;
 public class Post {
 	
 	private int cod;
-	private Administrador administrador;
+	private Usuario usuario;
 	private Blog blog;
 	
 	public Post(){
-		
+		this.usuario = new Usuario();
 	}
 
-	public Post(int cod, Administrador administrador, Blog blog) {
-		super();
+	public Post(int cod, Usuario usuario, Blog blog) {
+		this.usuario = new Usuario();
 		this.cod = cod;
-		this.administrador = administrador;
+		this.usuario = usuario;
 		this.blog = blog;
 	}
 
@@ -27,12 +27,12 @@ public class Post {
 		this.cod = cod;
 	}
 
-	public Administrador getAdministrador() {
-		return administrador;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Blog getBlog() {
@@ -42,13 +42,13 @@ public class Post {
 	public void setBlog(Blog blog) {
 		this.blog = blog;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Post [cod=" + cod + ", administrador=" + administrador
-				+ ", blog=" + blog + "]";
+		return "Post [cod=" + cod + ", usuario=" + usuario + ", blog=" + blog
+				+ "]";
 	}
-	
+
 	public int criarPost(Post post){
 		PostDAO pd = FactoryDAO.createPostDAO();
 		return pd.criarPost(post);

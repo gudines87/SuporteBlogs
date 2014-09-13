@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import negocios.Administrador;
+import negocios.Usuario;
 import negocios.Blog;
 import interfaces.BlogDAO;
 
@@ -24,7 +24,7 @@ public class JDBCBlogDAO implements BlogDAO {
 		
 		try{
 			int codigo = 0;
-			String sql = "insert into Blog(nome,url,imagemDeFundo,palavrasChave, idAdministrador)" +
+			String sql = "insert into Blog(nome,url,imagemDeFundo,palavrasChave, idUsuario)" +
 					"values (?,?,?,?,?,?)";
 			String sqlRecuperaCodigo = "select max(cod) from Blog";
 			
@@ -33,7 +33,7 @@ public class JDBCBlogDAO implements BlogDAO {
 			ps.setString(2, blog.getUrl());
 			ps.setString(3, blog.getImagemDeFundo());
 			ps.setString(4, blog.getPalavrasChave());
-			ps.setString(5, blog.getAdministrador().getId());
+			ps.setString(5, blog.getUsuario().getId());
 			
 			ps.executeUpdate();
 			
@@ -56,7 +56,7 @@ public class JDBCBlogDAO implements BlogDAO {
 	public Blog consultarBlog(int cod) {
 		try{
 			Blog blog = new Blog();
-			Administrador ad = new Administrador();
+			Usuario usuario = new Usuario();
 			String sql = "select * from Blog where cod = ?";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -68,7 +68,7 @@ public class JDBCBlogDAO implements BlogDAO {
 				blog.setImagemDeFundo(rs.getString("imagemDeFundo"));
 				blog.setNome(rs.getString("nome"));
 				blog.setPalavrasChave(rs.getString("palavrasChave"));
-				blog.setAdministrador(ad.consultarAdministrador(rs.getString("idAdministrador")));
+				blog.setUsuario(usuario.consultarUsuario(rs.getString("idUsuario")));
 			}
 			ps.close();
 			//con.close();

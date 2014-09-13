@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="/home/lucas/Documentos/Estudos/Ifal/Projetos/mysql-connector-java-5.1.27/src/lib/jboss-common-jdbc-wrapper.jar"/>
 	<classpathentry kind="lib" path="/home/lucas/Documentos/Estudos/Ifal/Projetos/mysql-connector-java-5.1.27/src/lib/jboss-common-jdbc-wrapper-src.jar"/>
 	<classpathentry kind="lib" path="/home/lucas/Documentos/Estudos/Ifal/Projetos/mysql-connector-java-5.1.27/src/lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/home/lucas/Área de Trabalho/easyaccept-1.0.3-jar/easyaccept.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

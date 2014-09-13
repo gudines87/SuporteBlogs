@@ -1,22 +1,22 @@
 package negocios;
 
-import interfaces.AdministradorDAO;
+
 import interfaces.AnexoDAO;
 import interfaces.BlogDAO;
 import interfaces.ComentarioDAO;
-import interfaces.EspectadorDAO;
 import interfaces.PostDAO;
-import persistencia.JDBCAdministradorDAO;
+import interfaces.UsuarioDAO;
+
 import persistencia.JDBCAnexoDAO;
 import persistencia.JDBCBlogDAO;
 import persistencia.JDBCComentarioDAO;
-import persistencia.JDBCEspectadorDAO;
 import persistencia.JDBCPostDAO;
+import persistencia.JDBCUsuarioDAO;;
 
 public class FactoryDAO {
 	
-	public static EspectadorDAO createEspectadorDAO(){
-		return new JDBCEspectadorDAO();
+	public static UsuarioDAO createUsuarioDAO(){
+		return new JDBCUsuarioDAO();
 	}
 	
 	public static BlogDAO createBlogDAO(){
@@ -35,7 +35,4 @@ public class FactoryDAO {
 		return new JDBCPostDAO();
 	}
 
-	public static AdministradorDAO createAdministradorDAO(){
-		return new JDBCAdministradorDAO();
-	}
 }

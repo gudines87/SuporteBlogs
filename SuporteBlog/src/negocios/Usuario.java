@@ -1,6 +1,11 @@
 package negocios;
 
-public abstract class Usuario {
+import java.util.List;
+
+import interfaces.UsuarioDAO;
+
+
+public class Usuario {
 
 	protected String id;
 	protected String nome;
@@ -74,5 +79,29 @@ public abstract class Usuario {
 		this.id = login.concat(senha);
 	}
 	
+	public void salvarUsuario(Usuario usuario){
+		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
+		ud.salvarUsuario(usuario);
+	}
+	
+	public void atualizarUsuario(Usuario usuario){
+		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
+		ud.atualizarUsuario(usuario);
+	}
+	
+	public Usuario consultarUsuario(String id){	
+		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
+		return ud.consultarUsuario(id);
+	}
+	
+	public void removerUsuario(String id){
+		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
+		ud.removerUsuario(id);
+	}
+	
+	public List<Usuario> listarUsuarios(){
+		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
+		return ud.listarUsuarios();
+	}
 	
 }

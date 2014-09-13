@@ -6,23 +6,19 @@ public class Comentario {
 	
 	private int cod;
 	private String comentario;
-	private Administrador administrador;
-	private Espectador espectador;
+	private Usuario usuario;
 
 	
 	public Comentario(){
-
+		this.usuario = new Usuario();
 	}
-	
-	public Comentario(String comentario, Administrador administrador,
-			Espectador espectador) {
-		super();
+
+	public Comentario(int cod, String comentario, Usuario usuario) {
+		this.usuario = new Usuario();
+		this.cod = cod;
 		this.comentario = comentario;
-		this.administrador = administrador;
-		this.espectador = espectador;
+		this.usuario = usuario;
 	}
-
-
 
 	public int getCod() {
 		return cod;
@@ -36,28 +32,19 @@ public class Comentario {
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
-	
-	public Administrador getAdministrador() {
-		return administrador;
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public Espectador getEspectador() {
-		return espectador;
-	}
-
-	public void setEspectador(Espectador espectador) {
-		this.espectador = espectador;
-	}
-	
 	@Override
 	public String toString() {
 		return "Comentario [cod=" + cod + ", comentario=" + comentario
-				+ ", administrador=" + administrador + ", espectador="
-				+ espectador + "]";
+				+ ", usuario=" + usuario + "]";
 	}
 
 	public int salvarComentario(Comentario comentario){

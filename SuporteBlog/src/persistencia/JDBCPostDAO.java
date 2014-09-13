@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import negocios.Administrador;
+import negocios.Usuario;
 import negocios.Blog;
 import negocios.Post;
 import interfaces.PostDAO;
@@ -24,12 +24,12 @@ public class JDBCPostDAO implements PostDAO{
 		
 		try{
 			int codigo = 0;
-			String sql = "insert into Post(codBlog, idAdministrador) values (?,?)";
+			String sql = "insert into Post(codBlog, idUsuario) values (?,?)";
 			String sqlRecuperaCodigo = "select max(cod) from Post";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, post.getBlog().getCod());
-			ps.setString(2, post.getAdministrador().getId());
+			ps.setString(2, post.getUsuario().getId());
 			ps.executeUpdate();
 			
 			ps = con.prepareStatement(sqlRecuperaCodigo);
@@ -53,7 +53,7 @@ public class JDBCPostDAO implements PostDAO{
 		try{
 			Post post = new Post();
 			Blog blog = new Blog();
-			Administrador ad = new Administrador();
+			Usuario usuario = new Usuario();
 			
 			String sql = "select * from Post where cod = ?";
 			
@@ -64,7 +64,7 @@ public class JDBCPostDAO implements PostDAO{
 			if(rs.next()){
 				post.setCod(rs.getInt("cod"));
 				post.setBlog(blog.consultarBlog(rs.getInt("codBlog")));
-				post.setAdministrador(ad.consultarAdministrador(rs.getString("idAdministrador")));
+				post.setUsuario(usuario.consultarUsuario(rs.getString("idUsuario")));
 			}
 			ps.close();
 			//con.close();

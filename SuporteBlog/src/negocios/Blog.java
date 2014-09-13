@@ -9,16 +9,17 @@ public class Blog {
 	private String url;
 	private String imagemDeFundo;
 	private String palavrasChave;
-	private Administrador administrador;	
+	private Usuario usuario;	
 	
 	public Blog(){
-
+		this.usuario = new Usuario();
 	}
 	
-	public Blog(String nome, String end, Administrador ad){
+	public Blog(String nome, String end, Usuario usuario){
+		this.usuario = new Usuario();
 		this.nome = nome;
 		this.url = end;
-		this.administrador = ad;
+		this.usuario = usuario;
 	}
 	
 	public int getCod() {
@@ -57,19 +58,20 @@ public class Blog {
 		this.palavrasChave = palavrasChave;
 	}
 
-	public Administrador getAdministrador() {
-		return administrador;
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Blog [cod=" + cod + ", nome=" + nome + ", end=" + url
+		return "Blog [cod=" + cod + ", nome=" + nome + ", url=" + url
 				+ ", imagemDeFundo=" + imagemDeFundo + ", palavrasChave="
-				+ palavrasChave + ", administrador=" + administrador + "]";
+				+ palavrasChave + ", usuario=" + usuario + "]";
 	}
 
 	public int criarBlog(Blog blog){
