@@ -12,9 +12,8 @@ public class Post {
 		this.usuario = new Usuario();
 	}
 
-	public Post(int cod, Usuario usuario, Blog blog) {
+	public Post(Usuario usuario, Blog blog) {
 		this.usuario = new Usuario();
-		this.cod = cod;
 		this.usuario = usuario;
 		this.blog = blog;
 	}

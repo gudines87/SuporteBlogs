@@ -19,10 +19,13 @@ public class Usuario {
 		
 	}
 	
-	public Usuario(String login, String senha, String nome){
+	public Usuario(String login, String senha, String nome, String end, String tel, String mail){
 		this.login = login;
 		this.senha = senha;
 		this.nome = nome;
+		this.tel = tel;
+		this.end = end;
+		this.mail = mail;
 	}
 	
 	public String getId() {
@@ -75,7 +78,7 @@ public class Usuario {
 				+ ", mail=" + mail + "]";
 	}
 	
-	public void gravarLogin(String login, String senha){
+	public void gravarId(String login, String senha){
 		this.id = login.concat(senha);
 	}
 	

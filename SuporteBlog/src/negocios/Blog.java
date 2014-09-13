@@ -15,13 +15,18 @@ public class Blog {
 		this.usuario = new Usuario();
 	}
 	
-	public Blog(String nome, String end, Usuario usuario){
+	public Blog(String nome, String url, String imagemDeFundo,
+			String palavrasChave, Usuario usuario) {
 		this.usuario = new Usuario();
 		this.nome = nome;
-		this.url = end;
+		this.url = url;
+		this.imagemDeFundo = imagemDeFundo;
+		this.palavrasChave = palavrasChave;
 		this.usuario = usuario;
 	}
-	
+
+
+
 	public int getCod() {
 		return cod;
 	}

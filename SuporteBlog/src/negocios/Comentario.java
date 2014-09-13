@@ -13,9 +13,8 @@ public class Comentario {
 		this.usuario = new Usuario();
 	}
 
-	public Comentario(int cod, String comentario, Usuario usuario) {
+	public Comentario(String comentario, Usuario usuario) {
 		this.usuario = new Usuario();
-		this.cod = cod;
 		this.comentario = comentario;
 		this.usuario = usuario;
 	}
