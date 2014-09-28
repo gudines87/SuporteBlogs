@@ -33,15 +33,11 @@ public class Fachada {
 	}
 	
 	public void salvarUsuario(String login, String senha, String nome, String end, String tel, String mail){
-		this.usuario = new Profile(login, senha, nome, end, tel, mail);
-		this.usuario.gravarId(login, senha);
-		this.usuario.salvarUsuario(usuario);
+		
 	}
 	
 	public void atualizarUsuario(String login, String senha, String nome, String end, String tel, String mail){
-		this.usuario = new Profile(login, senha, nome, end, tel, mail);
-		this.usuario.gravarId(login, senha);
-		this.usuario.atualizarUsuario(usuario);
+
 	}
 	
 	public Profile consultarUsuario(String id){
@@ -51,12 +47,6 @@ public class Fachada {
 		return this.usuario.listarUsuarios();
 	}
 	
-	
-	public int cadastrarBlog(String id, String nomeBlog, String imagemDeFundo, String url, String palavrasChave){
-		this.usuario = consultarUsuario(id);
-		this.blog = new Blog(nomeBlog, url, imagemDeFundo, palavrasChave, usuario);
-		return this.blog.criarBlog(blog);
-	}
 	
 	public void deletarBlog(int cod){
 		this.blog.removerBlog(cod);
@@ -93,13 +83,6 @@ public class Fachada {
 	
 	public Comentario consultarComentario(int cod){
 		return this.comentario.consultarComentario(cod);
-	}
-	
-	public int salvarAnexo(int codPost, String nome, String tipo, String end, int codComentario){
-		this.comentario = consultarComentario(codComentario);
-		this.post = consultarPost(codPost);
-		this.anexo = new Anexo(nome, tipo, end, comentario, post);
-		return this.anexo.salvarAnexo(anexo);
 	}
 	
 	public void removerAnexo(int cod){

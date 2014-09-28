@@ -10,6 +10,7 @@ import interfaces.UsuarioDAO;
 
 public class Profile implements Observer {
 	
+   
 	private String login;
 	private String nome_exibicao;
 	private String senha;
