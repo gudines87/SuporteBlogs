@@ -53,26 +53,33 @@ public class JDBCProfileDAO implements ProfileDAO{
 	}
 
 	@Override
-	public void atualizarUsuario(Profile usuario) {
+	public void changeProfileInformation(String id, String atributo){
 		try{
-			
-			String sql = "update Profile set login = ?, nome_exibicao = ?, senha = ?, sexo = ?,"
-					+ "email = ?, data_nasc = ?, endereco = ?, interesses = ?, "
-					+ "quem_sou_eu = ?, filmes = ?, musicas = ?, livros = ? where id = ?";
+			String sql = "";
+			if(atributo.equals("senha")){
+				sql = "update Profile set senha = ? where id = ?";
+			}else if(atributo.equals("nome")){
+				sql = "update Profile set nome = ? where id = ?";
+			}else if(atributo.equals("sexo")){
+				sql = "update Profile set sexo = ? where id = ?";
+			}else if(atributo.equals("dataNasc")){
+				sql = "update Profile set dataNasc = ? where id = ?";
+			}else if(atributo.equals("endereco")){
+				sql = "update Profile set endereco = ? where id = ?";
+			}else if(atributo.equals("musicas")){
+				sql = "update Profile set musicas = ? where id = ?";
+			}else if(atributo.equals("filmes")){
+				sql = "update Profile set filmes = ? where id = ?";
+			}else if(atributo.equals("livros")){
+				sql = "update Profile set livros = ? where id = ?";
+			}else if(atributo.equals("quem_sou_eu")){
+				sql = "update Profile set quem_sou_eu = ? where id = ?";
+			}else if(atributo.equals("interesses")){
+				sql = "update Profile set interesses = ? where id = ?";
+			}
 			
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, usuario.getLogin());
-			ps.setString(2, usuario.getNome());
-			ps.setString(3, usuario.getSenha());
-			ps.setString(4, usuario.getSexo());
-			ps.setString(5, usuario.getEmail());
-			ps.setDate(6, (Date) usuario.getDataNascimento());
-			ps.setString(7, usuario.getEndereco());
-			ps.setString(8, usuario.getQuemSouEu());
-			ps.setString(9, usuario.getInteresses());
-			ps.setString(10, usuario.getFilmes());
-			ps.setString(11, usuario.getMusicas());
-			ps.setString(12, usuario.getLivros());
+			ps.setString(1, atributo);
 			
 			ps.executeUpdate();
 			ps.close();

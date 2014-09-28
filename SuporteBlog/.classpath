@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/usuario/Desktop/lucas o coco gigante/mysql-connector-java-5.1.27/mysql-connector-java-5.1.27-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/usuario/Desktop/lucas o coco gigante/mysql-connector-java-5.1.27/src/lib/jboss-common-jdbc-wrapper.jar"/>
-	<classpathentry kind="lib" path="C:/Users/usuario/Desktop/lucas o coco gigante/mysql-connector-java-5.1.27/src/lib/jboss-common-jdbc-wrapper-src.jar"/>
-	<classpathentry kind="lib" path="C:/Users/usuario/Desktop/lucas o coco gigante/easyaccept.jar"/>
+	<classpathentry kind="lib" path="/home/lucas/Área de Trabalho/easyaccept-1.0.3-jar/easyaccept.jar"/>
+	<classpathentry kind="lib" path="/home/lucas/Documentos/Estudos/Ifal/Projetos/mysql-connector-java-5.1.27/mysql-connector-java-5.1.27-bin.jar"/>
+	<classpathentry kind="lib" path="/home/lucas/Documentos/Estudos/Ifal/Projetos/mysql-connector-java-5.1.27/src/lib/jboss-common-jdbc-wrapper.jar"/>
+	<classpathentry kind="lib" path="/home/lucas/Documentos/Estudos/Ifal/Projetos/mysql-connector-java-5.1.27/src/lib/jboss-common-jdbc-wrapper-src.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

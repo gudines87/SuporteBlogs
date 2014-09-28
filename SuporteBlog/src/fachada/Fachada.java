@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import negocios.Anexo;
 import negocios.Blog;
 import negocios.Comentario;
+import negocios.ControleSessao;
 import negocios.Profile;
 import negocios.Post;
 
@@ -69,7 +70,7 @@ public class Fachada {
 		}
 		
 		if(idade < 18 || idade > 100){
-			JOptionPane.showMessageDialog(null, "A idade é incorreta","aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "A idade ï¿½ incorreta","aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		
@@ -81,12 +82,32 @@ public class Fachada {
 		return usuario.getProfileInformation(login, atributo);
 	}
 	
-	public void doLogin(String login, String senha){
-		
+	public String getProfileInformationBySessionId(String id, String atributo){
+		return ControleSessao.getInstance().getProfileInformationBySessionId(id, atributo);
 	}
 	
-	public void atualizarUsuario(String login, String senha, String nome, String end, String tel, String mail){
-
+	public String doLogin(String login, String senha){
+		return ControleSessao.getInstance().doLogin(login, senha);
+	}
+	
+	public void changeProfileInformation(String id, String atributo){
+		usuario.changeProfileInformation(id, atributo);
+	}
+	
+	public void resetSessions(){
+		ControleSessao.getInstance().resetSessions();
+	}
+	
+	public void logoff(String id){
+		ControleSessao.getInstance().logoof(id);
+	}
+	
+	public boolean isUserLogged(String login){
+		return ControleSessao.getInstance().isUserLogged(login);
+	}
+	
+	public String getLoginById(String id){
+		return ControleSessao.getInstance().getLoginById(id);
 	}
 	
 	public Profile consultarUsuario(String id){

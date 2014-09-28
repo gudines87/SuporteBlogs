@@ -159,9 +159,9 @@ public class Profile implements Observer {
 		ud.createProfile(usuario);
 	}
 	
-	public void atualizarUsuario(Profile usuario){
+	public void changeProfileInformation(String id, String atributo){
 		ProfileDAO ud = FactoryDAO.createProfileDAO();
-		ud.atualizarUsuario(usuario);
+		ud.changeProfileInformation(id, atributo);
 	}
 	
 	public Profile consultarUsuario(String id){	
@@ -205,14 +205,7 @@ public class Profile implements Observer {
 		
 		return  "Erro";
 	}
-	
-	public void doLogin(String login, String senha){
-		//fazer login e gerar id.
-	}
-	
-	public void isUserLogged(){
-		//consultar pelo login;
-	}
+
 	
 	public boolean validarLogin(){
 		Pattern pattern = Pattern.compile("^\\w{5,15}-");
@@ -221,9 +214,9 @@ public class Profile implements Observer {
         boolean b = false;
         while( b = matcher.find() ){
             if( b ){
-                System.out.println( matcher.group()+" - Posição: "+matcher.start() );
+                System.out.println( matcher.group()+" - Posiï¿½ï¿½o: "+matcher.start() );
             }else{
-                System.out.println("Não encontrou");
+                System.out.println("Nï¿½o encontrou");
             }
         }
 		return true;
@@ -243,18 +236,18 @@ public class Profile implements Observer {
 		      return true;
 		    }
 		    else{
-		      System.out.println("O E-mail "+email+" é inválido");
+		      System.out.println("O E-mail "+email+" ï¿½ invï¿½lido");
 		      return false;
 		    }  
 	}
 	 
 	 public boolean validarLogin(Profile usuario){
 		 if(usuario.getLogin().length() < 5 || usuario.getLogin().length() > 15){
-				JOptionPane.showMessageDialog(null, "Mínimo de 5 e máximo de 15 caracteres para login","aviso", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Mï¿½nimo de 5 e mï¿½ximo de 15 caracteres para login","aviso", JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
 			if(usuario.getSenha().length() < 6 || usuario.getLogin().length() > 16){
-				JOptionPane.showMessageDialog(null, "Mínimo de 6 e máximo de 16 caracteres para senha","aviso", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Mï¿½nimo de 6 e mï¿½ximo de 16 caracteres para senha","aviso", JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
 			if(usuario.getLogin().equals(usuario.consultarPorLogin(usuario.getLogin()))){
@@ -268,19 +261,19 @@ public class Profile implements Observer {
 	public boolean validarCampos(Profile usuario){
 		
 		if(usuario.getLogin().equals(null)){
-			JOptionPane.showMessageDialog(null, "O campo login é obrigatório","aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo login ï¿½ obrigatï¿½rio","aviso", JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		if(usuario.getSenha().equals(null)){
-			JOptionPane.showMessageDialog(null, "O campo senha é obrigatório","aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo senha ï¿½ obrigatï¿½rio","aviso", JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		if(usuario.getEmail().equals(null)){
-			JOptionPane.showMessageDialog(null, "O campo email é obrigatório","aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo email ï¿½ obrigatï¿½rio","aviso", JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		if(usuario.getDataNascimento().equals(null)){
-			JOptionPane.showMessageDialog(null, "O campo Data de nascimento é obrigatório","aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo Data de nascimento ï¿½ obrigatï¿½rio","aviso", JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		
