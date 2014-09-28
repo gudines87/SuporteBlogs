@@ -1,12 +1,14 @@
 package fachada;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import negocios.Anexo;
 import negocios.Blog;
 import negocios.Comentario;
 import negocios.Profile;
-
 import negocios.Post;
 
 public class Fachada {
@@ -32,7 +34,54 @@ public class Fachada {
 		return instance;
 	}
 	
-	public void salvarUsuario(String login, String senha, String nome, String end, String tel, String mail){
+	public void createProfile(String login, String nome, String senha, String sexo,
+			String email, Date dataNascimento, String endereco,
+			String interesses, String quemSouEu, String filmes, String musicas,
+			String livros){
+		
+		int idade;
+		idade = usuario.calculaIdade(dataNascimento);
+		
+		this.usuario.setDataNascimento(dataNascimento);
+		this.usuario.setEmail(email);
+		this.usuario.setEndereco(endereco);
+		this.usuario.setFilmes(filmes);
+		this.usuario.setInteresses(interesses);
+		this.usuario.setLivros(livros);
+		this.usuario.setLogin(login);
+		this.usuario.setMusicas(musicas);
+		this.usuario.setNome(nome);
+		this.usuario.setQuemSouEu(quemSouEu);
+		this.usuario.setSenha(senha);
+		this.usuario.setSexo(sexo);
+		
+		
+		if(usuario.validarCampos(usuario) == false){
+			return;
+		}
+		
+		if(usuario.validarLogin() == false){
+			return;
+		}
+		
+		if(usuario.validarEmail(email) == false){
+			return;
+		}
+		
+		if(idade < 18 || idade > 100){
+			JOptionPane.showMessageDialog(null, "A idade é incorreta","aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		usuario.createProfile(usuario);
+		
+	}
+	
+	public String getProfileInformation(String login, String atributo){
+		return usuario.getProfileInformation(login, atributo);
+	}
+	
+	public void doLogin(String login, String senha){
 		
 	}
 	

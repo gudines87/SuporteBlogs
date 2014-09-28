@@ -5,18 +5,18 @@ import interfaces.AnexoDAO;
 import interfaces.BlogDAO;
 import interfaces.ComentarioDAO;
 import interfaces.PostDAO;
-import interfaces.UsuarioDAO;
+import interfaces.ProfileDAO;
 
 import persistencia.JDBCAnexoDAO;
 import persistencia.JDBCBlogDAO;
 import persistencia.JDBCComentarioDAO;
 import persistencia.JDBCPostDAO;
-import persistencia.JDBCUsuarioDAO;;
+import persistencia.JDBCProfileDAO;;
 
 public class FactoryDAO {
 	
-	public static UsuarioDAO createUsuarioDAO(){
-		return new JDBCUsuarioDAO();
+	public static ProfileDAO createProfileDAO(){
+		return new JDBCProfileDAO();
 	}
 	
 	public static BlogDAO createBlogDAO(){

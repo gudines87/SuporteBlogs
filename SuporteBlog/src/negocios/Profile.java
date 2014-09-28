@@ -1,11 +1,17 @@
 package negocios;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import interfaces.UsuarioDAO;
+import javax.swing.JOptionPane;
+
+import interfaces.ProfileDAO;
 
 
 public class Profile implements Observer {
@@ -148,29 +154,79 @@ public class Profile implements Observer {
 				+ livros + "]";
 	}
 
-	public void salvarUsuario(Profile usuario){
-		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
-		ud.salvarUsuario(usuario);
+	public void createProfile(Profile usuario){
+		ProfileDAO ud = FactoryDAO.createProfileDAO();
+		ud.createProfile(usuario);
 	}
 	
 	public void atualizarUsuario(Profile usuario){
-		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
+		ProfileDAO ud = FactoryDAO.createProfileDAO();
 		ud.atualizarUsuario(usuario);
 	}
 	
 	public Profile consultarUsuario(String id){	
-		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
+		ProfileDAO ud = FactoryDAO.createProfileDAO();
 		return ud.consultarUsuario(id);
 	}
 	
 	public void removerUsuario(String id){
-		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
+		ProfileDAO ud = FactoryDAO.createProfileDAO();
 		ud.removerUsuario(id);
 	}
 	
 	public List<Profile> listarUsuarios(){
-		UsuarioDAO ud = FactoryDAO.createUsuarioDAO();
+		ProfileDAO ud = FactoryDAO.createProfileDAO();
 		return ud.listarUsuarios();
+	}
+	
+	public Profile consultarPorLogin(String login){
+		ProfileDAO ud = FactoryDAO.createProfileDAO();
+		return ud.consultaPorLogin(login);
+	}
+	
+	public String getProfileInformation(String login, String atributo){
+		if(atributo.equals("nome_exibicao")){
+			return consultarPorLogin(login).getNome();
+		}else if(atributo.equals("email")){
+			return consultarPorLogin(login).getSexo();
+		}else if(atributo.equals("endereco")){
+			return consultarPorLogin(login).getEndereco();
+		}else if(atributo.equals("interesses")){
+			return consultarPorLogin(login).getInteresses();
+		}else if(atributo.equals("quem_sou_eu")){
+			return consultarPorLogin(login).getQuemSouEu();
+		}else if(atributo.equals("filmes")){
+			return consultarPorLogin(login).getFilmes();
+		}else if(atributo.equals("musicas")){
+			return consultarPorLogin(login).getMusicas();
+		}else if(atributo.equals("livros")){
+			return consultarPorLogin(login).getLivros();
+		}
+		
+		return  "Erro";
+	}
+	
+	public void doLogin(String login, String senha){
+		//fazer login e gerar id.
+	}
+	
+	public void isUserLogged(){
+		//consultar pelo login;
+	}
+	
+	public boolean validarLogin(){
+		Pattern pattern = Pattern.compile("^\\w{5,15}-");
+        Matcher matcher = pattern.matcher("ETE-1234 ZXC-4567 cdr-0987");
+ 
+        boolean b = false;
+        while( b = matcher.find() ){
+            if( b ){
+                System.out.println( matcher.group()+" - Posição: "+matcher.start() );
+            }else{
+                System.out.println("Não encontrou");
+            }
+        }
+		return true;
 	}
 
 	@Override
@@ -179,4 +235,78 @@ public class Profile implements Observer {
 		
 	}
 	
+	 public boolean validarEmail(String email) {
+		    Pattern p = Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$"); 
+		    Matcher m = p.matcher(email); 
+		    if (m.find()){
+		      System.out.println("O email "+email+" e valido");
+		      return true;
+		    }
+		    else{
+		      System.out.println("O E-mail "+email+" é inválido");
+		      return false;
+		    }  
+	}
+	 
+	 public boolean validarLogin(Profile usuario){
+		 if(usuario.getLogin().length() < 5 || usuario.getLogin().length() > 15){
+				JOptionPane.showMessageDialog(null, "Mínimo de 5 e máximo de 15 caracteres para login","aviso", JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+			if(usuario.getSenha().length() < 6 || usuario.getLogin().length() > 16){
+				JOptionPane.showMessageDialog(null, "Mínimo de 6 e máximo de 16 caracteres para senha","aviso", JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+			if(usuario.getLogin().equals(usuario.consultarPorLogin(usuario.getLogin()))){
+				return false;
+			}
+			
+	 return true;
+	 }
+	 
+	
+	public boolean validarCampos(Profile usuario){
+		
+		if(usuario.getLogin().equals(null)){
+			JOptionPane.showMessageDialog(null, "O campo login é obrigatório","aviso", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		if(usuario.getSenha().equals(null)){
+			JOptionPane.showMessageDialog(null, "O campo senha é obrigatório","aviso", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		if(usuario.getEmail().equals(null)){
+			JOptionPane.showMessageDialog(null, "O campo email é obrigatório","aviso", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		if(usuario.getDataNascimento().equals(null)){
+			JOptionPane.showMessageDialog(null, "O campo Data de nascimento é obrigatório","aviso", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		
+		
+		return true;		
+	}
+	
+	public int calculaIdade(java.util.Date dataNasc){
+
+		Calendar dateOfBirth = new GregorianCalendar();
+
+		dateOfBirth.setTime(dataNasc);
+
+		Calendar today = Calendar.getInstance();
+
+		int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+
+		dateOfBirth.add(Calendar.YEAR, age);
+
+		if (today.before(dateOfBirth)) {
+
+		age--;
+
+		}
+
+		return age;
+
+		}
 }
