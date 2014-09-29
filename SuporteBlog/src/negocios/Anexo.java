@@ -15,6 +15,18 @@ public class Anexo {
 	
 	}
 
+	public Anexo(String nome, TipoAnexo tipo, String end,
+			Comentario comentario, Post post) {
+		super();
+		this.nome = nome;
+		this.tipo = tipo;
+		this.end = end;
+		this.comentario = comentario;
+		this.post = post;
+	}
+
+
+
 	public Object getTipo(){
 		return tipo;
 	}

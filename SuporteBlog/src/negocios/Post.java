@@ -13,13 +13,17 @@ public class Post {
 	public Post(){
 		this.usuario = new Profile();
 	}
-
-	public Post(Profile usuario, Blog blog) {
-		this.usuario = new Profile();
+	
+	public Post(String titulo, String texto, Profile usuario, Blog blog) {
+		super();
+		this.titulo = titulo;
+		this.texto = texto;
 		this.usuario = usuario;
 		this.blog = blog;
 	}
-	
+
+
+
 	public String getTitulo() {
 		return titulo;
 	}
