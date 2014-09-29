@@ -16,7 +16,11 @@ import javax.swing.JOptionPane;
 
 import interfaces.ProfileDAO;
 
-
+/**
+* Esta classe refere-se ao perfil de um usuário cadastrado.
+*
+* @author Lucas Barbosa
+*/
 public class Profile implements Observer {
 	
    
@@ -33,10 +37,30 @@ public class Profile implements Observer {
 	private String musicas;
 	private String livros;
 	
+	
+	/**
+	* Construtor da classe vazio.
+	*/
 	public Profile(){
 		
 	}
 	
+	
+	/**
+	 * Construtor da classe inicializando os atributos.
+	 * @param login
+	 * @param nome
+	 * @param senha
+	 * @param sexo
+	 * @param email
+	 * @param dataNascimento
+	 * @param endereco
+	 * @param interesses
+	 * @param quemSouEu
+	 * @param filmes
+	 * @param musicas
+	 * @param livros
+	 */
 	public Profile(String login, String nome, String senha, String sexo,
 			String email, String dataNascimento, String endereco,
 			String interesses, String quemSouEu, String filmes, String musicas,
@@ -56,97 +80,228 @@ public class Profile implements Observer {
 		this.livros = livros;
 	}
 
+	/**
+	* Retorna o nome do perfil.
+	*
+	* @return nome do perfil
+	*/
 	public String getNome() {
 		return nome_exibicao;
 	}
+	
+	/**
+	* Seta nome do perfil.
+	*
+	* @param nome
+	*/
 	public void setNome(String nome) {
 		this.nome_exibicao = nome;
 	}
+	
+	/**
+	* Retorna o login do perfil.
+	*
+	* @return login do perfil
+	*/
 	public String getLogin() {
 		return login;
 	}
+	
+	/**
+	* Seta login do perfil.
+	*
+	* @param login
+	*/
 	public void setLogin(String login) {
 		this.login = login;
 	}
+	
+	/**
+	* Retorna a senha do perfil.
+	*
+	* @return senha do perfil
+	*/
 	public String getSenha() {
 		return senha;
 	}
+	
+	/**
+	* Seta senha do perfil.
+	*
+	* @param senha
+	*/
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 	
+	/**
+	* Retorna o sexo do perfil.
+	*
+	* @return nsexo do perfil
+	*/
 	public String getSexo() {
 		return sexo;
 	}
 
+	/**
+	* Seta sexo do perfil.
+	*
+	* @param sexo
+	*/
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 
+	/**
+	* Retorna o email do perfil.
+	*
+	* @return email do perfil
+	*/
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	* Seta email do perfil.
+	*
+	* @param email
+	*/
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	* Retorna a data de nascimento do perfil.
+	*
+	* @return data de nascimento do perfil
+	*/
 	public String getDataNascimento() {
 		return data_nasc;
 	}
 
+	/**
+	* Seta a data de nascimento do perfil.
+	*
+	* @param data nascimento
+	*/
 	public void setDataNascimento(String dataNascimento) {
 		this.data_nasc = dataNascimento;
 	}
 
+	/**
+	* Retorna o endereco do perfil.
+	*
+	* @return endereco do perfil
+	*/
 	public String getEndereco() {
 		return endereco;
 	}
 
+	/**
+	* Seta endereco do perfil.
+	*
+	* @param endereco
+	*/
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 
+	/**
+	* Retorna os interesses do perfil.
+	*
+	* @return interesses do perfil
+	*/
 	public String getInteresses() {
 		return interesses;
 	}
 
+	/**
+	* Seta interesses do perfil.
+	*
+	* @param interesses
+	*/
 	public void setInteresses(String interesses) {
 		this.interesses = interesses;
 	}
 
+	/**
+	* Retorna uma descricao do perfil.
+	*
+	* @return quem sou eu do perfil
+	*/
 	public String getQuemSouEu() {
 		return quem_sou_eu;
 	}
 
+	/**
+	* Seta quem_sou_eu do perfil.
+	*
+	* @param quem_sou_eu
+	*/
 	public void setQuemSouEu(String quemSouEu) {
 		this.quem_sou_eu = quemSouEu;
 	}
 
+	/**
+	* Retorna os filmes favoritos do perfil.
+	*
+	* @return filmes do perfil
+	*/
 	public String getFilmes() {
 		return filmes;
 	}
 
+	/**
+	* Seta os filmes do perfil.
+	*
+	* @param filmes
+	*/
 	public void setFilmes(String filmes) {
 		this.filmes = filmes;
 	}
 
+	/**
+	* Retorna as musicas favoritas do perfil.
+	*
+	* @return musicas do perfil
+	*/
 	public String getMusicas() {
 		return musicas;
 	}
 
+	/**
+	* Seta musicas do perfil.
+	*
+	* @param muscias
+	*/
 	public void setMusicas(String musicas) {
 		this.musicas = musicas;
 	}
 
+	/**
+	* Retorna os livros favoritos do perfil.
+	*
+	* @return livros do perfil
+	*/
 	public String getLivros() {
 		return livros;
 	}
 
+	/**
+	* Seta livros do perfil.
+	*
+	* @param livros
+	*/
 	public void setLivros(String livros) {
 		this.livros = livros;
 	}
 
+	
+	/**
+	* Mostra os atributos do perfil numa String
+	*
+	* @return uma string mostrando os atributos do perfil
+	*/
 	@Override
 	public String toString() {
 		return "Profile [login=" + login + ", nome_exibicao=" + nome_exibicao
@@ -157,36 +312,75 @@ public class Profile implements Observer {
 				+ livros + "]";
 	}
 
+	
+	/**
+	* Cria um perfil de usuario
+	*
+	* @param usuario
+	*/
 	public void createProfile(Profile usuario){
 		ProfileDAO ud = FactoryDAO.createProfileDAO();
 		ud.createProfile(usuario);
 	}
 	
+	/**
+	* Modifica informações desse perfil
+	*
+	* @param id, atributo, conteudo
+	*/
 	public void changeProfileInformation(String id, String atributo, String conteudo){
 		ProfileDAO ud = FactoryDAO.createProfileDAO();
 		ud.changeProfileInformation(id, atributo, conteudo);
 	}
 	
+	/**
+	* consulta usuario pelo id
+	*
+	* @param id
+	* @return Profile, um perfil.
+	*/
 	public Profile consultarUsuario(String id){	
 		ProfileDAO ud = FactoryDAO.createProfileDAO();
 		return ud.consultarUsuario(id);
 	}
 	
+	/**
+	 * método que remove os usuários do sistema
+	 * 
+	 * @param login
+	 */
 	public void removerUsuario(String login){
 		ProfileDAO ud = FactoryDAO.createProfileDAO();
 		ud.removerUsuario(login);
 	}
 	
+	/**
+	 * Método que lista os usuarios cadastrados no sistema
+	 * @return uma lista de usuario
+	 */
 	public List<Profile> listarUsuarios(){
 		ProfileDAO ud = FactoryDAO.createProfileDAO();
 		return ud.listarUsuarios();
 	}
 	
+	/**
+	 * método que consulta um perfil de acordo com seu login
+	 * 
+	 * @param login
+	 * @return um Perfil.
+	 */
 	public Profile consultarPorLogin(String login){
 		ProfileDAO ud = FactoryDAO.createProfileDAO();
 		return ud.consultaPorLogin(login);
 	}
 	
+	
+	/**
+	 *Método que retorna informações especificas de um atributo do perfil pesquisado 
+	 * @param login
+	 * @param atributo
+	 * @return uma String com as informações do atributo.
+	 */
 	public String getProfileInformation(String login, String atributo){
 		if(atributo.equals("nome_exibicao")){
 			return consultarPorLogin(login).getNome();
@@ -231,6 +425,13 @@ public class Profile implements Observer {
 		
 	}
 	
+	
+	/**
+	 * Método que válida o email.
+	 * 
+	 * @param email
+	 * @return retorna um boolean para validar o email.
+	 */
 	 public boolean validarEmail(String email) {
 		    Pattern p = Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$"); 
 		    Matcher m = p.matcher(email); 
@@ -244,6 +445,12 @@ public class Profile implements Observer {
 		    }  
 	}
 	 
+	 /**
+	  * método que válida o login
+	  * 
+	  * @param usuario
+	  * @return retorn um boolean para validar o login
+	  */
 	 public boolean validarLogin(Profile usuario){
 		 	ProfileDAO pd = FactoryDAO.createProfileDAO();
 		 
@@ -263,6 +470,13 @@ public class Profile implements Observer {
 	 }
 	 
 	
+	 /**
+	  * Método para validar campos de um perfil.
+	  * 
+	  * 
+	  * @param usuario
+	  * @return retorn um boolean que válida campos do perfil
+	  */
 	public boolean validarCampos(Profile usuario){
 		
 		if(usuario.getLogin().equals(null)){
@@ -286,6 +500,13 @@ public class Profile implements Observer {
 		return true;		
 	}
 	
+	
+	/**
+	 * Método que calcula a idade do usuario de um perfil
+	 * @param dataNasc
+	 * @return a idade do perfil.
+	 * @throws ParseException
+	 */
 	public int calculaIdade(String dataNasc) throws ParseException{
 
 	    DateFormat formatter = new SimpleDateFormat("MM/dd/yy");  

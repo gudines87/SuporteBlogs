@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import fachada.Fachada;
 
-public class testJDBCAnexoDAO {
+public class TestJDBCAnexoDAO {
 
 	@Test
 	public void testSalvarAnexo() {
