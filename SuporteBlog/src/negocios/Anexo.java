@@ -7,7 +7,7 @@ public class Anexo {
 	private int cod;
 	private String nome;
 	private TipoAnexo tipo;
-	private String end; //endereço do anexo.
+	private String end;
 	private Comentario comentario;
 	private Post post;
 	
@@ -15,6 +15,14 @@ public class Anexo {
 	
 	}
 
+	public Object getTipo(){
+		return tipo;
+	}
+	
+	public void setTipo(int tipo){
+		this.tipo.setId(tipo);
+	}
+	
 	public int getCod() {
 		return cod;
 	}

@@ -7,7 +7,6 @@ public class Post {
 	private int cod;
 	private String titulo;
 	private String texto;
-	private String sessionId;
 	private Profile usuario;
 	private Blog blog;
 	
@@ -19,6 +18,22 @@ public class Post {
 		this.usuario = new Profile();
 		this.usuario = usuario;
 		this.blog = blog;
+	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
 	public int getCod() {

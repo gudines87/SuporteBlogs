@@ -1,6 +1,6 @@
 package fachada;
 
-import java.util.Date;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -14,7 +14,7 @@ import negocios.Post;
 
 public class Fachada {
 	
-		private static Fachada instance = new Fachada();
+		private static Fachada instance = null;
 		
 		private Blog blog;
 		private Anexo anexo;
@@ -32,16 +32,24 @@ public class Fachada {
 	}
 
 	public static Fachada getInstance() {
+		if(instance == null){
+			instance = new Fachada();
+			return instance;
+		}
 		return instance;
 	}
 	
 	public void createProfile(String login, String nome, String senha, String sexo,
-			String email, Date dataNascimento, String endereco,
+			String email, String dataNascimento, String endereco,
 			String interesses, String quemSouEu, String filmes, String musicas,
 			String livros){
 		
-		int idade;
-		idade = usuario.calculaIdade(dataNascimento);
+		int idade = 0;
+		try {
+			idade = usuario.calculaIdade(dataNascimento);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		this.usuario.setDataNascimento(dataNascimento);
 		this.usuario.setEmail(email);
@@ -87,11 +95,17 @@ public class Fachada {
 	}
 	
 	public String doLogin(String login, String senha){
+		
+		if(isUserLogged(login) == true){
 		return ControleSessao.getInstance().doLogin(login, senha);
+		}else{
+			return null;
+		}
+
 	}
 	
-	public void changeProfileInformation(String id, String atributo){
-		usuario.changeProfileInformation(id, atributo);
+	public void changeProfileInformation(String id, String atributo, String conteudo){
+		usuario.changeProfileInformation(id, atributo, conteudo);
 	}
 	
 	public void resetSessions(){
@@ -110,13 +124,49 @@ public class Fachada {
 		return ControleSessao.getInstance().getLoginById(id);
 	}
 	
-	public Profile consultarUsuario(String id){
-		return this.usuario.consultarUsuario(id);
+	public void removerUsuario(String login){
+		this.usuario.removerUsuario(login);
+	}
+	
+	public Profile consultarUsuario(String login){
+		return this.usuario.consultarUsuario(login);
+	}
+	
+	public Profile consultaPorLogin(String login){
+		return this.usuario.consultarPorLogin(login);
 	}
 	public List<Profile> consultarUsuarios(){
 		return this.usuario.listarUsuarios();
 	}
 	
+	@SuppressWarnings("null")
+	public int createBlog(String titulo, String descricao, String imagemFundo,
+			boolean autz_comment, boolean autz_comment_annon, String background,
+			String dono){
+		
+		if(isUserLogged(dono) == true){
+			this.blog.setAutz_comment(autz_comment);
+			this.blog.setAutz_comment_annon(autz_comment_annon);
+			this.blog.setBackground(background);
+			this.blog.setDescricao(descricao);
+			this.blog.setImagemFundo(imagemFundo);
+			this.blog.setProfile(usuario.consultarPorLogin(dono));
+			this.blog.setTitulo(titulo);
+			this.blog.setId(this.blog.createBlog(blog));
+			
+			return this.blog.getId();
+			}else{
+				return (Integer) null;
+			}
+	}
+	
+	public String getBlogInformation(int id, String atributo){
+		return this.blog.getBlogInformation(id, atributo);
+	}
+	
+	public void  changeBlogInformation(int id, String atributo, String conteudo){
+		this.blog.changeBlogInformation(id, atributo, conteudo);
+	}
 	
 	public void deletarBlog(int cod){
 		this.blog.removerBlog(cod);
@@ -126,10 +176,11 @@ public class Fachada {
 		return this.blog.consultarBlog(cod);
 	}
 	
-	public int criarPostar(String id, int codBlog){
-		this.usuario = consultarUsuario(id);
-		this.blog = consultarBlog(codBlog);
-		this.post = new Post(usuario, blog);
+	public int criarPostar(String titulo, String texto, String usuarioLogin, int idBlog){
+		this.post.setUsuario(this.usuario.consultarPorLogin(usuarioLogin));
+		this.post.setBlog(this.blog.consultarBlog(idBlog));
+		this.post.setTexto(texto);
+		this.post.setTitulo(titulo);
 		return this.post.criarPost(post);
 	}
 	
@@ -141,18 +192,29 @@ public class Fachada {
 		return this.post.consultarPost(cod);
 	}
 	
-	public int criarComentario(String coment, String id){
-		this.usuario = consultarUsuario(id);
-		this.comentario = new Comentario(coment, usuario);
+	public int criarComentario(String tipo, String conteudo, int codPost, String usuarioLogin){
+		this.comentario.setConteudo(conteudo);
+		this.comentario.setPost(this.post.consultarPost(codPost));
+		this.comentario.setTipo(tipo);
+		this.comentario.setUsuario(this.usuario.consultarPorLogin(usuarioLogin));
 		return this.comentario.salvarComentario(comentario);
 	}
 	
-	public void removerComentario(int cod){
-		this.comentario.removerComentario(cod);
+	public void removerComentario(int codido){
+		this.comentario.removerComentario(codido);
 	}
 	
-	public Comentario consultarComentario(int cod){
-		return this.comentario.consultarComentario(cod);
+	public Comentario consultarComentario(int codido){
+		return this.comentario.consultarComentario(codido);
+	}
+	
+	public int salvarAnexo(String nome, int tipo, String end, int codComentario, int codPost){
+		this.anexo.setNome(nome);
+		this.anexo.setComentario(this.comentario.consultarComentario(codComentario));
+		this.anexo.setEnd(end);
+		this.anexo.setPost(this.post.consultarPost(codPost));
+		this.anexo.setTipo(tipo);
+		return this.anexo.salvarAnexo(anexo);
 	}
 	
 	public void removerAnexo(int cod){

@@ -77,4 +77,8 @@ public class ControleSessao {
 		return null;
 	}
 	
+	public String getSessionId(){
+		return sessionId;
+	}
+	
 }

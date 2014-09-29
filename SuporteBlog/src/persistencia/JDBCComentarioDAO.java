@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import negocios.Post;
 import negocios.Profile;
 import negocios.Comentario;
 
@@ -24,13 +25,17 @@ public class JDBCComentarioDAO implements ComentarioDAO {
 	public int salvarComentario(Comentario comentario) {
 		
 		try{
+			
 		int codigo = 0;
-		String sql = "insert into Comentario(comentario,idUsuario) values (?,?,?)";
-		String sqlRecuperaCodigo = "select max(cod) from Comentario";
+		String sql = "insert into Comentario(tipo, conteudo, codPost, usuarioLogin)"
+				+ " values (?,?,?,?)";
+		String sqlRecuperaCodigo = "select max(codigo) from Comentario";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, comentario.getComentario());
-		ps.setString(2, comentario.getUsuario().getId());
+		ps.setString(1, comentario.getTipo());
+		ps.setString(2, comentario.getConteudo());
+		ps.setInt(3, comentario.getPost().getCod());
+		ps.setString(4, comentario.getUsuario().getLogin());
 		ps.executeUpdate();
 		ps = con.prepareStatement(sqlRecuperaCodigo);
 		
@@ -39,7 +44,7 @@ public class JDBCComentarioDAO implements ComentarioDAO {
 			codigo = rs.getInt(1);
 		}
 		ps.close();
-		//con.close();
+		con.close();
 		return codigo;
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -48,24 +53,27 @@ public class JDBCComentarioDAO implements ComentarioDAO {
 	}
 
 	@Override
-	public Comentario consultarComentario(int cod) {
+	public Comentario consultarComentario(int id) {
 		
 		try{
 			Profile usuario = new Profile();
 			Comentario comentario = new Comentario();
-			String sql = "select * from Comentario where cod = ?";
+			Post post = new Post();
+			String sql = "select * from Comentario where codigo = ?";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, cod);
+			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()){
-				comentario.setCod(rs.getInt("cod"));
-				comentario.setComentario(rs.getString("comentario"));
-				comentario.setUsuario(usuario.consultarUsuario(rs.getString("codUsuario")));
+			comentario.setCodigo(id);
+			comentario.setConteudo(rs.getString("conteudo"));
+			comentario.setPost(post.consultarPost(rs.getInt("codPost")));
+			comentario.setTipo(rs.getString("tipo"));
+			comentario.setUsuario(usuario.consultarPorLogin(rs.getString("usuarioLogin")));
 			}
 			ps.close();
-			//con.close();
+			con.close();
 			return comentario;
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -77,13 +85,13 @@ public class JDBCComentarioDAO implements ComentarioDAO {
 	public void removerComentario(int cod) {
 		
 		try{
-			String sql = "delete from Comentario where cod = ?";
+			String sql = "delete from Comentario where codigo = ?";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, cod);
 			ps.executeUpdate();
 			ps.close();
-			//con.close;
+			con.close();
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new RuntimeException("Falha ao remover comentario em JDBCComentarioDAO", e);

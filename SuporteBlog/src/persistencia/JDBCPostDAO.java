@@ -22,14 +22,17 @@ public class JDBCPostDAO implements PostDAO{
 	@Override
 	public int criarPost(Post post) {
 		
-		try{
+		try{			
 			int codigo = 0;
-			String sql = "insert into Post(codBlog, idUsuario) values (?,?)";
+			String sql = "insert into Post(idBlog, usuarioLogin, titulo, texto)"
+					+ " values (?,?,?,?)";
 			String sqlRecuperaCodigo = "select max(cod) from Post";
 			
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, post.getBlog().getCod());
-			ps.setString(2, post.getUsuario().getId());
+			ps.setInt(1, post.getBlog().getId());
+			ps.setString(2, post.getUsuario().getLogin());
+			ps.setString(3, post.getTitulo());
+			ps.setString(4, post.getTexto());
 			ps.executeUpdate();
 			
 			ps = con.prepareStatement(sqlRecuperaCodigo);
@@ -38,7 +41,7 @@ public class JDBCPostDAO implements PostDAO{
 				codigo = rs.getInt(1);
 			}
 			ps.close();
-			//con.close();
+			con.close();
 			return codigo;
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -63,11 +66,13 @@ public class JDBCPostDAO implements PostDAO{
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()){
 				post.setCod(rs.getInt("cod"));
-				post.setBlog(blog.consultarBlog(rs.getInt("codBlog")));
-				post.setUsuario(usuario.consultarUsuario(rs.getString("idUsuario")));
+				post.setBlog(blog.consultarBlog(rs.getInt("idBlog")));
+				post.setUsuario(usuario.consultarPorLogin(rs.getString("usuarioLogin")));
+				post.setTexto(rs.getString("texto"));
+				post.setTitulo(rs.getString("titulo"));
 			}
 			ps.close();
-			//con.close();
+			con.close();
 			return post;
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -85,7 +90,7 @@ public class JDBCPostDAO implements PostDAO{
 			ps.setInt(1, cod);
 			ps.executeUpdate();
 			ps.close();
-			//con.close();
+			con.close();
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new RuntimeException("Falha ao remover post em JDBCPostDAO", e);

@@ -14,6 +14,10 @@ public enum TipoAnexo {
 	return cod;
 	}
 	
+	public void setId(int cod){
+		this.cod = cod;
+	}
+	
 	public static TipoAnexo retornaIdTipo(int cod) {
 	
 	for (TipoAnexo anexo : values()) {

@@ -1,5 +1,8 @@
 package negocios;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -22,7 +25,7 @@ public class Profile implements Observer {
 	private String senha;
 	private String sexo;
 	private String email;
-	private Date data_nasc;
+	private String data_nasc;
 	private String endereco;
 	private String interesses;
 	private String quem_sou_eu;
@@ -35,7 +38,7 @@ public class Profile implements Observer {
 	}
 	
 	public Profile(String login, String nome, String senha, String sexo,
-			String email, Date dataNascimento, String endereco,
+			String email, String dataNascimento, String endereco,
 			String interesses, String quemSouEu, String filmes, String musicas,
 			String livros) {
 		super();
@@ -88,11 +91,11 @@ public class Profile implements Observer {
 		this.email = email;
 	}
 
-	public Date getDataNascimento() {
+	public String getDataNascimento() {
 		return data_nasc;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.data_nasc = dataNascimento;
 	}
 
@@ -159,9 +162,9 @@ public class Profile implements Observer {
 		ud.createProfile(usuario);
 	}
 	
-	public void changeProfileInformation(String id, String atributo){
+	public void changeProfileInformation(String id, String atributo, String conteudo){
 		ProfileDAO ud = FactoryDAO.createProfileDAO();
-		ud.changeProfileInformation(id, atributo);
+		ud.changeProfileInformation(id, atributo, conteudo);
 	}
 	
 	public Profile consultarUsuario(String id){	
@@ -169,9 +172,9 @@ public class Profile implements Observer {
 		return ud.consultarUsuario(id);
 	}
 	
-	public void removerUsuario(String id){
+	public void removerUsuario(String login){
 		ProfileDAO ud = FactoryDAO.createProfileDAO();
-		ud.removerUsuario(id);
+		ud.removerUsuario(login);
 	}
 	
 	public List<Profile> listarUsuarios(){
@@ -214,9 +217,9 @@ public class Profile implements Observer {
         boolean b = false;
         while( b = matcher.find() ){
             if( b ){
-                System.out.println( matcher.group()+" - Posi��o: "+matcher.start() );
+                System.out.println( matcher.group()+" - Posicao: "+matcher.start() );
             }else{
-                System.out.println("N�o encontrou");
+                System.out.println("Nao encontrado");
             }
         }
 		return true;
@@ -236,21 +239,23 @@ public class Profile implements Observer {
 		      return true;
 		    }
 		    else{
-		      System.out.println("O E-mail "+email+" � inv�lido");
+		      System.out.println("O E-mail "+email+" e invalido");
 		      return false;
 		    }  
 	}
 	 
 	 public boolean validarLogin(Profile usuario){
-		 if(usuario.getLogin().length() < 5 || usuario.getLogin().length() > 15){
-				JOptionPane.showMessageDialog(null, "M�nimo de 5 e m�ximo de 15 caracteres para login","aviso", JOptionPane.WARNING_MESSAGE);
+		 	ProfileDAO pd = FactoryDAO.createProfileDAO();
+		 
+		 	if(usuario.getLogin().length() < 5 || usuario.getLogin().length() > 15){
+				JOptionPane.showMessageDialog(null, "Minimo de 5 e maximo de 15 caracteres para login","aviso", JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
 			if(usuario.getSenha().length() < 6 || usuario.getLogin().length() > 16){
-				JOptionPane.showMessageDialog(null, "M�nimo de 6 e m�ximo de 16 caracteres para senha","aviso", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Minimo de 6 e maximo de 16 caracteres para senha","aviso", JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
-			if(usuario.getLogin().equals(usuario.consultarPorLogin(usuario.getLogin()))){
+			if(pd.validarProfile(usuario.getLogin()) == true){
 				return false;
 			}
 			
@@ -281,11 +286,14 @@ public class Profile implements Observer {
 		return true;		
 	}
 	
-	public int calculaIdade(java.util.Date dataNasc){
+	public int calculaIdade(String dataNasc) throws ParseException{
 
+	    DateFormat formatter = new SimpleDateFormat("MM/dd/yy");  
+	    Date date = (Date)formatter.parse(dataNasc);  
+		
 		Calendar dateOfBirth = new GregorianCalendar();
 
-		dateOfBirth.setTime(dataNasc);
+		dateOfBirth.setTime(date);
 
 		Calendar today = Calendar.getInstance();
 

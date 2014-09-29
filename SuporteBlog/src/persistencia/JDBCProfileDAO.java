@@ -1,7 +1,6 @@
 package persistencia;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +32,7 @@ public class JDBCProfileDAO implements ProfileDAO{
 			ps.setString(3, usuario.getSenha());
 			ps.setString(4, usuario.getSexo());
 			ps.setString(5, usuario.getEmail());
-			ps.setDate(6, (Date) usuario.getDataNascimento());
+			ps.setString(6, usuario.getDataNascimento());
 			ps.setString(7, usuario.getEndereco());
 			ps.setString(8, usuario.getQuemSouEu());
 			ps.setString(9, usuario.getInteresses());
@@ -53,7 +52,7 @@ public class JDBCProfileDAO implements ProfileDAO{
 	}
 
 	@Override
-	public void changeProfileInformation(String id, String atributo){
+	public void changeProfileInformation(String id, String atributo, String conteudo){
 		try{
 			String sql = "";
 			if(atributo.equals("senha")){
@@ -79,7 +78,7 @@ public class JDBCProfileDAO implements ProfileDAO{
 			}
 			
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, atributo);
+			ps.setString(1, conteudo);
 			
 			ps.executeUpdate();
 			ps.close();
@@ -92,14 +91,14 @@ public class JDBCProfileDAO implements ProfileDAO{
 	}
 
 	@Override
-	public void removerUsuario(String id) {
+	public void removerUsuario(String login) {
 		try{
-			String sql = "delete from Profile where id = ?";
+			String sql = "delete from Profile where login = ?";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, id);
+			ps.setString(1, login);
 			ps.executeUpdate();
 			ps.close();
-			//con.close();
+			con.close();
 			}catch(SQLException e){
 				e.printStackTrace();
 				throw new RuntimeException("Falha ao remover perfil em JDBCProfileDAO", e);
@@ -108,18 +107,18 @@ public class JDBCProfileDAO implements ProfileDAO{
 	}
 
 	@Override
-	public Profile consultarUsuario(String id) {
+	public Profile consultarUsuario(String login) {
 		
 		try{
 			Profile usuario = new Profile();
-		String sql = "select * from Profile where id = ?";
+		String sql = "select * from Profile where login = ?";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, id);
+		ps.setString(1, login);
 		ResultSet rs = ps.executeQuery();
 		
 		if(rs.next()){
-		usuario.setDataNascimento(rs.getDate("data_nasc"));
+		usuario.setDataNascimento(rs.getString("data_nasc"));
 		usuario.setLogin(rs.getString("login"));
 		usuario.setSenha(rs.getString("senha"));
 		usuario.setNome(rs.getString("nome_exibicao"));
@@ -132,7 +131,9 @@ public class JDBCProfileDAO implements ProfileDAO{
 		usuario.setQuemSouEu(rs.getString("quem_sou_eu"));
 		usuario.setSexo(rs.getString("sexo"));
 		}
-		
+		ps.close();
+		rs.close();
+		con.close();
 		return usuario;
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -150,7 +151,7 @@ public class JDBCProfileDAO implements ProfileDAO{
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				Profile usuario = new Profile();
-				usuario.setDataNascimento(rs.getDate("data_nasc"));
+				usuario.setDataNascimento(rs.getString("data_nasc"));
 				usuario.setLogin(rs.getString("login"));
 				usuario.setSenha(rs.getString("senha"));
 				usuario.setNome(rs.getString("nome_exibicao"));
@@ -185,7 +186,7 @@ public class JDBCProfileDAO implements ProfileDAO{
 		ResultSet rs = ps.executeQuery();
 		
 		if(rs.next()){
-		usuario.setDataNascimento(rs.getDate("data_nasc"));
+		usuario.setDataNascimento(rs.getString("data_nasc"));
 		usuario.setLogin(rs.getString("login"));
 		usuario.setSenha(rs.getString("senha"));
 		usuario.setNome(rs.getString("nome_exibicao"));
@@ -198,12 +199,41 @@ public class JDBCProfileDAO implements ProfileDAO{
 		usuario.setQuemSouEu(rs.getString("quem_sou_eu"));
 		usuario.setSexo(rs.getString("sexo"));
 		}
-		
+		ps.close();
+		rs.close();
+		con.close();
 		return usuario;
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new RuntimeException("Falha ao consultar perfil em JDBCProfileDAO", e);
 		}
+	}
+
+	@Override
+	public boolean validarProfile(String login) {
+		try{
+			String loginAux = "";
+			String sql = "select * from Profile where login = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, login);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()){
+				login = rs.getString("login");
+			}
+			ps.close();
+			rs.close();
+			con.close();
+			if(login.equals(loginAux)){
+				return false;
+			}else{
+				return true;
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new RuntimeException("Falha ao validar perfil em JDBCProfileDAO", e);
+		}
+		
 	}
 
 }

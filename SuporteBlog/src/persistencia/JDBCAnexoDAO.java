@@ -30,9 +30,9 @@ public class JDBCAnexoDAO implements AnexoDAO {
 			
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, anexo.getNome());
-			ps.setString(2, anexo.getTipo());
+			ps.setObject(2, anexo.getTipo());
 			ps.setString(3, anexo.getEnd());
-			ps.setInt(4, anexo.getComentario().getCod());
+			ps.setInt(4, anexo.getComentario().getCodigo());
 			ps.setInt(5,anexo.getPost().getCod());
 			
 			ps.executeUpdate();
@@ -43,7 +43,7 @@ public class JDBCAnexoDAO implements AnexoDAO {
 				codigo = rs.getInt(1);
 			}
 			ps.close();
-			//con.close();
+			con.close();
 			return codigo;
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -67,13 +67,13 @@ public class JDBCAnexoDAO implements AnexoDAO {
 			if(rs.next()){
 				anexo.setCod(rs.getInt("cod"));
 				anexo.setNome(rs.getString("nome"));
-				anexo.setTipo(rs.getString("tipo"));
+				anexo.setTipo(rs.getInt("tipo"));
 				anexo.setEnd(rs.getString("end"));
 				anexo.setComentario(comentario.consultarComentario(rs.getInt("codComentario")));
 				anexo.setPost(post.consultarPost(rs.getInt("codPost")));
 			}			
 			ps.close();
-			//con.close();
+			con.close();
 			return anexo;
 		}catch(SQLException e){
 			e.printStackTrace();

@@ -4,32 +4,55 @@ import interfaces.ComentarioDAO;
 
 public class Comentario {
 	
-	private int cod;
-	private String comentario;
+	private int codigo;
+	private String tipo;
+	private String conteudo;
+	private Post post;	
 	private Profile usuario;
 
 	
 	public Comentario(){
 		this.usuario = new Profile();
 	}
-
-	public Comentario(String comentario, Profile usuario) {
-		this.usuario = new Profile();
-		this.comentario = comentario;
+	
+	public Comentario(String tipo, String conteudo, Post post, Profile usuario) {
+		super();
+		this.tipo = tipo;
+		this.conteudo = conteudo;
+		this.post = post;
 		this.usuario = usuario;
 	}
 
-	public int getCod() {
-		return cod;
+	public int getCodigo() {
+		return codigo;
 	}
-	public void setCod(int cod) {
-		this.cod = cod;
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
-	public String getComentario() {
-		return comentario;
+
+	public String getTipo() {
+		return tipo;
 	}
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getConteudo() {
+		return conteudo;
+	}
+
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 	public Profile getUsuario() {
@@ -38,12 +61,6 @@ public class Comentario {
 
 	public void setUsuario(Profile usuario) {
 		this.usuario = usuario;
-	}
-
-	@Override
-	public String toString() {
-		return "Comentario [cod=" + cod + ", comentario=" + comentario
-				+ ", usuario=" + usuario + "]";
 	}
 
 	public int salvarComentario(Comentario comentario){

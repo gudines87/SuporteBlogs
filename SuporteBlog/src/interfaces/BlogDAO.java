@@ -4,8 +4,9 @@ import negocios.Blog;
 
 public interface BlogDAO {
 	
-	public int criarBlog(Blog blog);
-	public Blog consultarBlog(int cod);
-	public void removerBlog(int cod);
+	public int createBlog(Blog blog);
+	public Blog consultarBlog(int id);
+	public void removerBlog(int id);
+	public void changeBlogInformation(int id, String atributo, String conteudo);
 
 }
